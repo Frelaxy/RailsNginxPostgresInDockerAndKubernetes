@@ -1,0 +1,10 @@
+<div class="container">
+<h2 class="title-lg mb">Вопрос <%= @question.id %></h2>
+
+<p class="mb-sm"><%= @question.body %></p>
+
+<p class="mt"><%= link_to 'Изменить вопрос', edit_question_path(@question)%></p>
+
+<p class="mt"><%= link_to "Все вопросы", "/questions" %></p>
+
+</div>

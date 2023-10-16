@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: backend-rails-deployment
+  labels: 
+    component: backend-rails
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: backend-rails
+
+  template:
+    metadata:
+      labels:
+        component: backend-rails
+        
+    spec:
+      containers:
+        - name: backend
+          image: frelaxy/app:latest
+          ports:
+          - containerPort: 3000
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 50m
+          env:
+            - name: DATABASE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DATABASE_HOST
+
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: POSTGRES_USER
+
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: POSTGRES_DB
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: POSTGRES_PASSWORD
