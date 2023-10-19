@@ -21,6 +21,7 @@ pipeline {
         stage('Push images to repository..') {
             steps {
                 echo 'Pushing images to repository..'
+                sh 'docker login -u frelaxy -p dckr_pat_d2gz5rL_xn5rV2cVUEIUO8mdXng'
                 sh 'docker push frelaxy/app:latest'
                 sh 'docker push frelaxy/database:latest'
                 sh 'docker push frelaxy/nginx:latest'
