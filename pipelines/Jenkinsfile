@@ -3,13 +3,6 @@ pipeline {
 
     stages {
         stage('Pull') {
-            steps {
-                echo 'Pulling from GitHub..'
-                sh 'git init'
-                sh 'git remote add origin https://github.com/Frelaxy/RailsNginxPostgresInDockerAndKubernetes'
-                sh 'git pull origin main'
-            }
-        }
         stage('Build') {
             steps {
                 echo 'Building application..'
