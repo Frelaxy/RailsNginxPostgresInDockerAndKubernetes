@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Pull') {
         stage('Build') {
             steps {
                 echo 'Building application..'
