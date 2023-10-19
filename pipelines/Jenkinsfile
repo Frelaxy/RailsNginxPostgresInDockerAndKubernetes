@@ -16,6 +16,9 @@ pipeline {
             steps {
                 echo 'Testing..'
                 sh 'docker-compose up -d'
+                sh 'sleep 5'
+                sh 'docker ps'
+                sh 'docker-compose logs'
             }
         }
         stage('Push images to repository..') {
