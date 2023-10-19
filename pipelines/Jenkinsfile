@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Pull') {
+            steps {
+                echo 'Pulling from GitHub..'
+                sh 'git init'
+                sh 'git remote add origin https://github.com/Frelaxy/RailsNginxPostgresInDockerAndKubernetes'
+                sh 'git pull origin main'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building application..'
+                sh 'docker build -t frelaxy/app:latest -f docker/app/Dockerfile .'
+                echo 'Building database..'
+                sh 'docker build -t frelaxy/database:latest -f docker/database/Dockerfile .'
+                echo 'Building nginx..'
+                sh 'docker build -t frelaxy/nginx:latest -f docker/nginx/Dockerfile .'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+                sh 'docker-compose up -d'
+            }
+        }
+        stage('Push images to repository..') {
+            steps {
+                echo 'Pushing images to repository..'
+                sh 'docker push frelaxy/app:latest'
+                sh 'docker push frelaxy/database:latest'
+                sh 'docker push frelaxy/nginx:latest'
+            }
+        }
+        stage('Delete pipline artifacts..') {
+            steps {
+                echo 'Deleting images...'
+                sh 'docker-compose down'
+                sh 'docker rmi frelaxy/app:latest frelaxy/database:latest frelaxy/nginx:latest'
+            }
+        }
+    }
+}
