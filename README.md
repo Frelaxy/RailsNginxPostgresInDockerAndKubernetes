@@ -1,6 +1,6 @@
 ﻿# RailsNginxPostgresInDockerAndKubernetes
 
-Test multi-container Ruby on Rails application with PostgreSQL and Nginx
+Test multi-container Ruby on Rails application with Postgres and Nginx
 for study Docker and Kubernetes
 
 docker-compose up -d - running application in Docker
